@@ -1,0 +1,91 @@
+# =========================
+# Core data science
+# =========================
+pandas
+numpy
+polars
+duckdb
+pyarrow
+fastparquet
+
+# =========================
+# Notebooks / development
+# =========================
+jupyter
+notebook
+ipykernel
+
+# =========================
+# Data visualization
+# =========================
+matplotlib
+seaborn
+plotly
+altair
+
+# =========================
+# Dashboard app
+# =========================
+streamlit
+streamlit-option-menu
+streamlit-folium
+
+# =========================
+# Machine learning
+# =========================
+scikit-learn
+xgboost
+lightgbm
+shap
+joblib
+
+# =========================
+# Database / SQL
+# =========================
+SQLAlchemy
+psycopg2-binary
+alembic
+
+# =========================
+# API / backend
+# =========================
+fastapi
+uvicorn[standard]
+pydantic
+python-multipart
+python-dotenv
+requests
+httpx
+
+# =========================
+# AI / LLM / RAG future use
+# =========================
+openai
+google-generativeai
+langchain
+langchain-openai
+langchain-community
+langchain-text-splitters
+chromadb
+faiss-cpu
+sentence-transformers
+tiktoken
+
+# =========================
+# File handling
+# =========================
+openpyxl
+xlsxwriter
+python-docx
+pypdf
+
+# =========================
+# Healthcare / FHIR data support
+# =========================
+fhir.resources
+
+# =========================
+# Utilities
+# =========================
+tqdm
+python-dateutil
