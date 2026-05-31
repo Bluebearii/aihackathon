@@ -24,6 +24,9 @@ An intelligent healthcare operations platform designed to improve patient access
   - [Option A: Full Import (1.5M Records via Script)](#option-a-full-import-15m-records-via-script)
   - [Option B: Sample Import (10K Records via Notebook)](#option-b-sample-import-10k-records-via-notebook)
 - [Using the Jupyter Notebook](#using-the-jupyter-notebook)
+- [Interactive Dashboard (Streamlit)](#interactive-dashboard-streamlit)
+  - [Running the Dashboard](#running-the-dashboard)
+  - [Dashboard Pages](#dashboard-pages)
 - [Database Schema](#database-schema)
   - [Column Reference](#column-reference)
 - [Data Source](#data-source)
@@ -56,10 +59,10 @@ This repository contains the **data pipeline** that fetches Medicare provider da
 | **DB Driver** | psycopg2-binary |
 | **Data Processing** | pandas, numpy, polars |
 | **Visualization** | plotly, matplotlib, seaborn, altair |
+| **Dashboard** | Streamlit + Plotly (interactive) |
 | **API Framework** | FastAPI (future) |
 | **AI/LLM** | OpenAI, LangChain, ChromaDB (future) |
 | **Notebook** | Jupyter |
-| **Dashboard** | Streamlit (future) |
 
 ---
 
@@ -69,11 +72,16 @@ This repository contains the **data pipeline** that fetches Medicare provider da
 aihackathon/
 ├── .git/                        # Git repository
 ├── .gitignore                   # Ignores venv, data, .env, caches, etc.
+├── .streamlit/
+│   └── config.toml              # Streamlit theme & server configuration
 ├── Document/
 │   ├── instruction_app.txt      # Full application specification
 │   └── api.txt                  # CMS API endpoint reference
 ├── cms_data_pipeline.ipynb      # Jupyter notebook for data exploration & visualization
+├── dashboard.py                 # ⭐ Interactive Streamlit dashboard (29+ charts)
 ├── import_all_cms_data.py       # Standalone script to import 1.5M records into PostgreSQL
+├── generate_report.py           # Generates .docx analysis report with matplotlib charts
+├── generate_report_expanded.py  # Expanded report with 29 charts & full data dictionary
 ├── main.py                      # Application entry point (placeholder)
 ├── requirements.txt             # All Python dependencies
 ├── venv/                        # Python virtual environment (not committed)
@@ -388,6 +396,92 @@ The notebook `cms_data_pipeline.ipynb` is organized into 8 sections:
 
 ---
 
+## Interactive Dashboard (Streamlit)
+
+The project includes a full interactive dashboard built with **Streamlit** and **Plotly**. It contains **29+ interactive charts** — every visualization from the Jupyter notebook, plus choropleth maps, data tables, and CSV export — all with hover tooltips and sidebar filters.
+
+### Running the Dashboard
+
+**1. Make sure your virtual environment is activated and PostgreSQL is running:**
+
+```powershell
+.\venv\Scripts\activate
+```
+
+**2. Make sure data is imported** (see [Importing CMS Medicare Data](#importing-cms-medicare-data)).
+
+**3. Launch the dashboard:**
+
+```powershell
+streamlit run dashboard.py
+```
+
+**4. Open in your browser:**
+
+Streamlit will print a local URL (usually `http://localhost:8501`). Open it in any browser.
+
+```
+  You can now view your Streamlit app in your browser.
+
+  Local URL: http://localhost:8501
+  Network URL: http://192.168.x.x:8501
+```
+
+> 💡 The dashboard auto-reloads when you edit `dashboard.py`. No need to restart the server.
+
+**5. To stop the server**, press `Ctrl+C` in the terminal.
+
+---
+
+### Dashboard Pages
+
+The dashboard has **8 pages** accessible via the sidebar. Each chart includes detailed analysis describing what it shows and problems identified.
+
+| Page | Charts & Features |
+|------|-------------------|
+| **🏠 Overview** | KPI cards (records, providers, specialties, states, payments), top specialties bar, top states bar, gender/entity pies, "Who Pays What" stacked bar |
+| **🩺 Provider Analysis** | Top 20 specialties, top 15 credentials, gender & entity pies, payment by gender/entity, Medicare participation, drug vs non-drug, place of service |
+| **🗺️ Geographic** | 2 interactive choropleth maps (records & payment by state), top states bar, unique providers by state, top 20 cities, avg payment by state |
+| **💰 Payment Analysis** | Charges vs payments by specialty, payment & charge histograms, payment efficiency (bottom 20), box plots by top 8 specialties |
+| **📊 Revenue Gap** | Payment KPIs, payment field definitions, "Who Pays What" breakdown, specialty breakdown (stacked), gap by state, gap by specialty (overlay) |
+| **🔬 Procedures** | Top 20 common procedures, top 20 highest-paying, top 20 lowest-paying, services-per-patient ratio by specialty |
+| **📈 Utilization & Stats** | Scatter plot (patients vs services colored by payment), correlation heatmap, descriptive statistics table, data quality/missing values |
+| **📋 Data Tables** | Per-specialty summary (top 25), per-state summary (all states), CSV export buttons |
+
+**Features:**
+- **Hover tooltips** on every chart — point at any bar, dot, or state to see exact data
+- **Sidebar filters** — slice by State, Specialty, Entity Type, and Place of Service
+- **Detailed analysis** — each chart has a "What This Chart Shows" and "Problem Identified" section
+- **Cached data** — the 1.5M row dataset is loaded once and cached for 1 hour
+- **Dark theme** — premium healthcare-focused design with Inter font
+
+### Dashboard Configuration
+
+The dashboard theme is configured in `.streamlit/config.toml`:
+
+```toml
+[theme]
+primaryColor = "#2A9D8F"
+backgroundColor = "#0E1117"
+secondaryBackgroundColor = "#1A1F2E"
+textColor = "#E8ECF1"
+font = "sans serif"
+```
+
+Database credentials are configured at the top of `dashboard.py` (same format as other scripts):
+
+```python
+DB_CONFIG = {
+    'host': 'localhost',
+    'port': 5433,
+    'database': 'careflow_ai',
+    'user': 'postgres',
+    'password': 'postgres',
+}
+```
+
+---
+
 ## Database Schema
 
 The `cms_medicare_providers` table stores Medicare provider service data with clean, human-readable column names:
@@ -587,13 +681,14 @@ Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 ## What's Next
 
-After the data pipeline is set up, the next steps for CareFlow AI are:
+With the data pipeline and dashboard running, the next steps for CareFlow AI are:
 
-1. **FastAPI Backend** — REST API endpoints to query the PostgreSQL database
-2. **Frontend (React/Next.js)** — Healthcare dashboard UI
-3. **AI Integration** — Connect OpenAI/Gemini/Claude for chatbot and AI features
-4. **RAG Pipeline** — LangChain + vector database for document Q&A
-5. **Additional Data** — Import more CMS datasets (claims, denial rates, etc.)
+1. ~~**Streamlit Dashboard**~~ ✅ — Interactive dashboard with 29+ charts (done!)
+2. **FastAPI Backend** — REST API endpoints to query the PostgreSQL database
+3. **Frontend (React/Next.js)** — Production healthcare dashboard UI
+4. **AI Integration** — Connect OpenAI/Gemini/Claude for chatbot and AI features
+5. **RAG Pipeline** — LangChain + vector database for document Q&A
+6. **Additional Data** — Import more CMS datasets (claims, denial rates, etc.)
 
 See `Document/instruction_app.txt` for the full application specification.
 
