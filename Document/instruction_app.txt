@@ -1,0 +1,1438 @@
+You are an expert full-stack software engineer, UX/UI designer, healthcare workflow architect, and AI product designer.
+
+Build a production-ready web application called **CareFlow AI**.
+
+CareFlow AI is an intelligent healthcare operations platform designed to improve patient access, prior authorization, and revenue cycle management. The platform should help healthcare staff, patients, and administrators reduce manual work, improve visibility, prevent delays, reduce claim denials, and improve the overall patient experience.
+
+The application should feel calm, professional, trustworthy, and easy to read, especially for elderly users or users with low vision. Avoid flashy, overly futuristic, or generic AI-looking design. The interface should be simple, clean, warm, and healthcare-friendly.
+
+---
+
+## 1. Main Goal of the Application
+
+Create a healthcare operations dashboard with AI-assisted workflows for:
+
+1. **Patient Access**
+
+   * Appointment scheduling
+   * Insurance eligibility verification
+   * Cost estimate support
+   * Referral tracking
+   * Patient reminders
+   * No-show risk detection
+   * After-hours support
+   * Language and accessibility support
+
+2. **Prior Authorization**
+
+   * Check whether prior authorization is required
+   * Collect needed clinical documentation
+   * Compare patient/provider information with payer rules
+   * Generate a prior authorization request draft
+   * Detect missing documentation
+   * Track authorization status
+   * Display pending, approved, denied, and needs-review cases
+
+3. **Revenue Cycle Management**
+
+   * Claim review
+   * Coding/documentation quality check
+   * Denial risk prediction
+   * Eligibility gap detection
+   * Accounts receivable status
+   * Patient payment support
+   * Revenue leakage alerts
+
+4. **AI Chatbot for Future Use**
+
+   * Include a chatbot panel in the application
+   * The chatbot does not need to be fully connected to real AI yet
+   * Design it so it can later connect to OpenAI, Gemini, Claude, LangChain, RAG, MCP, or a healthcare knowledge base
+   * The chatbot should support both patient-facing and staff-facing modes
+
+---
+
+## 2. Target Users
+
+The platform should support multiple user types:
+
+### Patient
+
+Can:
+
+* Ask questions using chatbot
+* Book appointments
+* View upcoming appointments
+* Check insurance status
+* View estimated cost
+* Receive reminders
+* Track referral status
+* Ask after-hours questions
+
+### Front Desk Staff
+
+Can:
+
+* Manage appointment requests
+* Verify insurance
+* Track referrals
+* View no-show risk
+* Send patient reminders
+* Review chatbot conversations
+
+### Prior Authorization Specialist
+
+Can:
+
+* View cases requiring authorization
+* Upload or review documentation
+* See missing information alerts
+* Generate prior authorization draft
+* Track payer response status
+* Manage approvals and denials
+
+### Billing / Revenue Cycle Staff
+
+Can:
+
+* Review claims
+* See denial risk
+* View coding/documentation issues
+* Track accounts receivable
+* Manage patient payment status
+* View revenue leakage warnings
+
+### Admin / Manager
+
+Can:
+
+* View analytics dashboard
+* Manage users and roles
+* Monitor operational performance
+* View system activity
+* Manage settings
+
+---
+
+## 3. Required Pages / Screens
+
+Build the following pages:
+
+### 1. Landing Page
+
+Create a calm, professional landing page that explains the product.
+
+Sections:
+
+* Hero section
+* Short product description
+* Three main modules:
+
+  * Patient Access
+  * Prior Authorization
+  * Revenue Cycle Management
+* AI Assistant preview
+* Benefits section
+* Simple call-to-action buttons:
+
+  * “View Dashboard”
+  * “Try AI Assistant”
+  * “Explore Workflows”
+
+Design style:
+
+* Soft healthcare colors
+* Large readable text
+* Spacious layout
+* Simple icons
+* Friendly but professional tone
+
+---
+
+### 2. Login Page
+
+Create a simple login page.
+
+Fields:
+
+* Email
+* Password
+
+Buttons:
+
+* Login
+* Forgot password
+* Create account
+
+Also include demo login buttons for:
+
+* Patient
+* Front Desk Staff
+* Prior Authorization Specialist
+* Billing Staff
+* Admin
+
+For now, demo login can route users into the dashboard without real authentication if backend is not ready.
+
+---
+
+### 3. Main Dashboard
+
+Create a main dashboard that summarizes the healthcare operation.
+
+Dashboard cards:
+
+* Appointments Today
+* Pending Insurance Verifications
+* High No-Show Risk Patients
+* Prior Authorizations Pending
+* Prior Authorizations Denied
+* Claims at Risk
+* Open A/R Balance
+* Patient Payment Follow-Ups
+
+Include charts:
+
+* Appointment volume by day
+* Prior authorization status breakdown
+* Claim denial risk trend
+* No-show risk trend
+* Revenue cycle performance
+
+Use simple chart designs that are readable and not too colorful.
+
+---
+
+### 4. Patient Access Page
+
+Create a page for appointment and access management.
+
+Features:
+
+* Appointment request table
+* Patient search
+* Appointment status filter
+* Insurance verification status
+* Referral status
+* No-show risk score
+* Reminder status
+* Language preference
+* Accessibility needs
+
+Each patient row should show:
+
+* Patient name
+* Age
+* Contact information
+* Requested service
+* Preferred date/time
+* Insurance provider
+* Eligibility status
+* Referral required: yes/no
+* No-show risk: low/medium/high
+* Current status
+
+Actions:
+
+* Schedule appointment
+* Verify insurance
+* Send reminder
+* View patient details
+* Open chatbot conversation
+
+Create a patient details modal or page with:
+
+* Basic patient info
+* Appointment history
+* Insurance info
+* Referral info
+* Notes
+* AI recommendations
+
+---
+
+### 5. Appointment Scheduling Page
+
+Create a scheduling interface.
+
+Features:
+
+* Calendar view
+* Provider availability
+* Appointment type filter
+* Patient search
+* Suggested appointment slots
+* Appointment confirmation screen
+
+AI suggestions:
+
+* Recommend earliest available appointment
+* Recommend provider based on specialty
+* Flag missing insurance/referral information
+* Suggest reminder schedule
+
+---
+
+### 6. Insurance Eligibility Page
+
+Create an insurance verification screen.
+
+Fields:
+
+* Patient name
+* Date of birth
+* Insurance provider
+* Member ID
+* Group number
+* Service type
+* Provider/NPI placeholder
+
+Display:
+
+* Eligibility status
+* Coverage active/inactive
+* Copay estimate
+* Deductible estimate
+* Out-of-pocket estimate
+* Prior authorization required: yes/no
+* Referral required: yes/no
+* Verification date/time
+
+For now, use mock data if real API is not available.
+
+---
+
+### 7. Prior Authorization Page
+
+Create a prior authorization management page.
+
+Features:
+
+* Prior authorization case list
+* Search and filter by patient, payer, provider, status, urgency
+* Status columns:
+
+  * Draft
+  * Missing Information
+  * Ready to Submit
+  * Submitted
+  * Pending Payer Review
+  * Approved
+  * Denied
+  * Appeal Needed
+
+Each case should show:
+
+* Case ID
+* Patient name
+* Service/procedure
+* Insurance payer
+* Provider
+* Date created
+* Due date
+* Status
+* Missing documents
+* AI confidence score
+* Urgency level
+
+Actions:
+
+* Generate prior authorization draft
+* Review missing documentation
+* Submit case placeholder
+* Update status
+* View payer rules
+* Create appeal draft
+
+---
+
+### 8. Prior Authorization Case Detail Page
+
+Create a detailed view for one prior authorization case.
+
+Sections:
+
+* Patient information
+* Provider information
+* Requested service/procedure
+* Insurance payer information
+* Clinical documentation
+* Required documentation checklist
+* Payer rule summary
+* AI-generated prior authorization draft
+* Missing information alerts
+* Status timeline
+* Staff notes
+
+AI features:
+
+* Summarize clinical notes
+* Match documentation to payer requirements
+* Flag missing details
+* Generate a prior authorization letter
+* Generate an appeal letter if denied
+
+---
+
+### 9. Revenue Cycle Management Page
+
+Create a revenue cycle dashboard.
+
+Features:
+
+* Claims table
+* Claim search
+* Denial risk filter
+* Payment status filter
+* Payer filter
+* Aging filter
+
+Each claim should show:
+
+* Claim ID
+* Patient name
+* Payer
+* Service date
+* Billed amount
+* Expected reimbursement
+* Claim status
+* Denial risk score
+* Missing documentation
+* Coding issue flag
+* Days in A/R
+
+Claim statuses:
+
+* Draft
+* Ready to Submit
+* Submitted
+* Accepted
+* Denied
+* Under Review
+* Paid
+* Patient Balance
+
+Actions:
+
+* Review claim
+* Fix coding issue
+* View denial reason
+* Generate appeal
+* Send patient payment reminder
+* Mark as resolved
+
+---
+
+### 10. Claim Detail Page
+
+Create a detailed claim review page.
+
+Sections:
+
+* Claim summary
+* Patient info
+* Visit/service info
+* Diagnosis code placeholder
+* Procedure code placeholder
+* Documentation checklist
+* Denial risk analysis
+* AI recommendations
+* Payment timeline
+* Staff notes
+
+AI features:
+
+* Predict denial risk
+* Explain why claim may be denied
+* Recommend documentation fixes
+* Suggest coding review
+* Generate denial appeal draft
+* Summarize claim history
+
+---
+
+### 11. AI Assistant / Chatbot Page
+
+Create a dedicated AI chatbot page.
+
+The chatbot should have two modes:
+
+### Patient Mode
+
+Patient can ask:
+
+* “Can I book an appointment?”
+* “Do I need a referral?”
+* “What is my estimated cost?”
+* “Can I reschedule?”
+* “What does prior authorization mean?”
+* “Why did I receive this bill?”
+
+### Staff Mode
+
+Staff can ask:
+
+* “Which patients are high no-show risk today?”
+* “Show me prior auth cases missing documentation.”
+* “Why is this claim at high denial risk?”
+* “Generate a prior authorization draft.”
+* “Summarize this patient access case.”
+* “Which claims need follow-up?”
+
+Chatbot UI requirements:
+
+* Large readable text
+* Clear message bubbles
+* Calm colors
+* Timestamp
+* Typing indicator
+* Suggested prompts
+* Ability to switch between Patient Mode and Staff Mode
+* Placeholder upload button for documents
+* Placeholder microphone button for future Voice AI
+* Placeholder “Use Knowledge Base” toggle for future RAG
+
+The chatbot should be built in a modular way so it can later connect to:
+
+* OpenAI API
+* Gemini API
+* Claude API
+* LangChain
+* LangGraph
+* RAG pipeline
+* Vector database
+* MCP tools
+* EHR API
+* Scheduling API
+* Insurance verification API
+* Billing system API
+
+For now, chatbot responses can be mock responses, but the structure should be ready for real AI integration.
+
+---
+
+### 12. Analytics Page
+
+Create an analytics page for admin/managers.
+
+Charts and metrics:
+
+* Average appointment wait time
+* No-show rate
+* Insurance verification completion time
+* Prior authorization turnaround time
+* Prior authorization approval rate
+* Prior authorization denial rate
+* Claim denial rate
+* Average days in A/R
+* Estimated revenue leakage
+* Staff workload reduction estimate
+
+Include filters:
+
+* Date range
+* Department
+* Provider
+* Payer
+* Status
+
+Use easy-to-understand charts, large labels, and short explanations.
+
+---
+
+### 13. Settings Page
+
+Create settings for:
+
+User settings:
+
+* Name
+* Email
+* Role
+* Department
+* Notification preferences
+
+Accessibility settings:
+
+* Font size: normal / large / extra large
+* High contrast mode
+* Reduced motion mode
+* Language preference
+* Screen reader friendly mode
+
+System settings:
+
+* Organization name
+* Payer list
+* Provider list
+* Appointment types
+* Prior authorization rules placeholder
+* Claim denial categories
+* AI assistant configuration placeholder
+
+---
+
+## 4. Basic Standard Application Functions
+
+Include these standard functions across the app:
+
+### User Authentication Placeholder
+
+* Login
+* Logout
+* Create account
+* Forgot password
+* Role-based routing
+* Demo users
+
+### Role-Based Access Control
+
+Different users should see different menus and permissions.
+
+Example:
+
+* Patient sees appointments, chatbot, bills
+* Front desk sees scheduling and insurance verification
+* Prior auth staff sees authorization cases
+* Billing staff sees claims and payments
+* Admin sees everything
+
+### Search and Filter
+
+Every major table should support:
+
+* Search
+* Filter
+* Sort
+* Status filter
+* Date filter
+
+### CRUD Operations
+
+For demo purposes, support:
+
+* Create
+* Read
+* Update
+* Delete
+
+Apply CRUD to:
+
+* Patients
+* Appointments
+* Prior authorization cases
+* Claims
+* Notes
+* Tasks
+
+### Notifications
+
+Include notification center with:
+
+* Appointment reminders
+* Missing documentation alerts
+* Prior authorization updates
+* Claim denial alerts
+* Payment follow-up reminders
+
+### Task Management
+
+Create a staff task queue.
+
+Task examples:
+
+* Verify insurance for patient
+* Review missing prior auth document
+* Call payer for status update
+* Fix claim coding issue
+* Contact patient for payment
+* Send appointment reminder
+
+Task fields:
+
+* Task title
+* Assigned user
+* Priority
+* Due date
+* Related patient/case/claim
+* Status
+
+### Audit Trail
+
+Include a basic activity log.
+
+Track:
+
+* User actions
+* Status updates
+* AI-generated recommendations
+* Document review events
+* Claim changes
+* Prior authorization changes
+
+### Data Export
+
+Include buttons for:
+
+* Export CSV
+* Export PDF placeholder
+* Print report
+
+### Responsive Design
+
+The app must work on:
+
+* Desktop
+* Tablet
+* Mobile
+
+Prioritize desktop dashboard, but mobile should still be clean and readable.
+
+---
+
+## 5. Data Model / Mock Data
+
+Create realistic mock data for:
+
+### Patients
+
+Fields:
+
+* Patient ID
+* Full name
+* Age
+* Date of birth
+* Phone
+* Email
+* Preferred language
+* Accessibility needs
+* Insurance provider
+* Member ID
+* Primary provider
+* Appointment history
+* Balance
+
+### Appointments
+
+Fields:
+
+* Appointment ID
+* Patient ID
+* Provider
+* Department
+* Appointment type
+* Date
+* Time
+* Status
+* No-show risk
+* Reminder sent
+* Referral required
+* Insurance verified
+
+### Prior Authorization Cases
+
+Fields:
+
+* Case ID
+* Patient ID
+* Payer
+* Procedure/service
+* Diagnosis
+* Provider
+* Required documents
+* Missing documents
+* Status
+* Urgency
+* Created date
+* Due date
+* AI summary
+* AI recommendation
+
+### Claims
+
+Fields:
+
+* Claim ID
+* Patient ID
+* Payer
+* Service date
+* Diagnosis code
+* Procedure code
+* Billed amount
+* Expected reimbursement
+* Status
+* Denial risk
+* Denial reason
+* Days in A/R
+* AI recommendation
+
+### Tasks
+
+Fields:
+
+* Task ID
+* Title
+* Assigned to
+* Priority
+* Due date
+* Status
+* Related entity
+* Notes
+
+### Chat Messages
+
+Fields:
+
+* Message ID
+* User ID
+* Mode: patient/staff
+* Sender
+* Message
+* Timestamp
+* Suggested action
+
+---
+
+## 6. AI Features to Include
+
+Even if using mock logic first, design the app around these AI features:
+
+### Patient Access AI
+
+* Predict no-show risk
+* Recommend best appointment slot
+* Identify missing insurance/referral info
+* Generate patient reminder message
+* Summarize patient access history
+
+### Prior Authorization AI
+
+* Determine if authorization may be required
+* Summarize clinical notes
+* Compare documentation against payer rules
+* Detect missing information
+* Generate prior authorization draft
+* Generate appeal draft
+
+### Revenue Cycle AI
+
+* Predict claim denial risk
+* Detect coding/documentation gaps
+* Explain denial risk
+* Suggest claim corrections
+* Generate appeal letter
+* Summarize payment timeline
+
+### Chatbot AI
+
+* Patient support
+* Staff workflow support
+* Document Q&A placeholder
+* Knowledge base Q&A placeholder
+* Voice AI placeholder
+* Multilingual support placeholder
+
+---
+
+## 7. Design Theme
+
+Use a calm, relaxed, elder-friendly healthcare theme.
+
+### Visual Style
+
+* Clean and professional
+* Soft rounded cards
+* Spacious layout
+* Minimal clutter
+* Clear hierarchy
+* Large readable text
+* Gentle shadows
+* Calm colors
+* Avoid harsh neon colors
+* Avoid overly futuristic AI visuals
+* Avoid dense dashboards
+
+### Suggested Color Palette
+
+Use colors similar to:
+
+* Warm white background
+* Soft blue
+* Sage green
+* Light teal
+* Soft gray
+* Dark navy or charcoal for text
+* Light cream accent
+
+Example:
+
+* Background: #F7FAF9
+* Card background: #FFFFFF
+* Primary: #3A7CA5
+* Secondary: #6BAA75
+* Accent: #D9EDE8
+* Text: #1F2933
+* Muted text: #667085
+* Warning: soft amber
+* Error: soft red, not harsh bright red
+
+### Typography
+
+Use easy-to-read fonts:
+
+* Inter
+* Source Sans 3
+* Nunito Sans
+* Open Sans
+
+Text requirements:
+
+* Body text at least 16px
+* Important dashboard numbers at least 28px
+* Buttons at least 16px
+* High contrast between text and background
+* Avoid thin font weights
+* Use clear section headings
+
+### Accessibility
+
+Must include:
+
+* Large text option
+* High contrast option
+* Keyboard-friendly navigation
+* Clear focus states
+* Aria labels where appropriate
+* Buttons with descriptive labels
+* Avoid relying only on color to show status
+* Use icons plus labels
+* Reduce motion option
+
+### Elder-Friendly Requirements
+
+The app should be comfortable for elderly users:
+
+* Large buttons
+* Simple wording
+* Clear instructions
+* Not too many options on one screen
+* Avoid small icons without labels
+* Use plain English
+* Use confirmation messages
+* Use gentle error messages
+* Use readable spacing
+
+Example button text:
+
+* “Book Appointment”
+* “Check Insurance”
+* “Send Reminder”
+* “Review Missing Information”
+* “Ask AI Assistant”
+
+Avoid vague labels like:
+
+* “Execute”
+* “Process”
+* “Run Operation”
+
+---
+
+## 8. Navigation Structure
+
+Use a left sidebar navigation on desktop.
+
+Menu items:
+
+* Dashboard
+* Patient Access
+* Scheduling
+* Insurance Verification
+* Prior Authorization
+* Revenue Cycle
+* Claims
+* AI Assistant
+* Tasks
+* Analytics
+* Settings
+
+On mobile:
+
+* Use bottom navigation or collapsible menu
+* Keep important actions easy to access
+
+---
+
+## 9. Components to Build
+
+Create reusable components:
+
+* App layout
+* Sidebar
+* Top navigation bar
+* Dashboard metric card
+* Status badge
+* Search bar
+* Filter dropdown
+* Data table
+* Patient card
+* Case card
+* Claim card
+* Task card
+* Chart card
+* Modal
+* Toast notification
+* Empty state
+* Loading state
+* Error state
+* Chatbot message bubble
+* Suggested prompt button
+* Accessibility settings panel
+
+---
+
+## 10. Status Badge Design
+
+Use readable badges with text and icon.
+
+Examples:
+
+Appointment status:
+
+* Scheduled
+* Pending
+* Completed
+* Cancelled
+* No-show
+
+Insurance status:
+
+* Verified
+* Pending
+* Failed
+* Needs Review
+
+Prior authorization status:
+
+* Draft
+* Missing Info
+* Ready
+* Submitted
+* Pending
+* Approved
+* Denied
+* Appeal Needed
+
+Claim status:
+
+* Draft
+* Submitted
+* Accepted
+* Denied
+* Paid
+* Patient Balance
+
+Risk levels:
+
+* Low Risk
+* Medium Risk
+* High Risk
+
+Never use color alone. Always include text.
+
+---
+
+## 11. Example User Flows
+
+### Flow 1: Patient Books Appointment
+
+1. Patient opens chatbot
+2. Patient says they need an appointment
+3. AI asks for reason, preferred time, and insurance
+4. System suggests available appointment slots
+5. Patient selects one
+6. System checks insurance eligibility
+7. System confirms appointment
+8. Reminder is created
+
+### Flow 2: Staff Reviews High No-Show Risk
+
+1. Front desk opens Patient Access page
+2. Filters by “High No-Show Risk”
+3. Opens patient details
+4. AI recommends reminder method
+5. Staff sends reminder
+6. Task is marked complete
+
+### Flow 3: Prior Authorization Case
+
+1. Staff opens Prior Authorization page
+2. Selects a case marked “Missing Info”
+3. AI shows missing documents
+4. Staff uploads or checks documentation
+5. AI generates prior authorization draft
+6. Staff marks case as ready to submit
+
+### Flow 4: Claim Denial Prevention
+
+1. Billing staff opens Revenue Cycle page
+2. Filters by “High Denial Risk”
+3. Opens claim detail
+4. AI explains why claim may be denied
+5. Staff fixes documentation/coding issue
+6. Claim status changes to “Ready to Submit”
+
+---
+
+## 12. Backend Requirements
+
+Build backend structure that supports future production use.
+
+Suggested backend:
+
+* Node.js with Express or NestJS
+* OR Python FastAPI
+* Database: PostgreSQL
+* ORM: Prisma, SQLAlchemy, or similar
+* Authentication placeholder
+* REST API endpoints
+* Modular architecture
+
+Suggested API routes:
+
+### Auth
+
+* POST /auth/login
+* POST /auth/logout
+* POST /auth/register
+* POST /auth/forgot-password
+
+### Users
+
+* GET /users
+* GET /users/:id
+* POST /users
+* PUT /users/:id
+* DELETE /users/:id
+
+### Patients
+
+* GET /patients
+* GET /patients/:id
+* POST /patients
+* PUT /patients/:id
+* DELETE /patients/:id
+
+### Appointments
+
+* GET /appointments
+* GET /appointments/:id
+* POST /appointments
+* PUT /appointments/:id
+* DELETE /appointments/:id
+
+### Insurance
+
+* POST /insurance/verify
+* GET /insurance/verifications
+* GET /insurance/verifications/:id
+
+### Prior Authorization
+
+* GET /prior-auth
+* GET /prior-auth/:id
+* POST /prior-auth
+* PUT /prior-auth/:id
+* POST /prior-auth/:id/generate-draft
+* POST /prior-auth/:id/check-missing-info
+* POST /prior-auth/:id/generate-appeal
+
+### Claims
+
+* GET /claims
+* GET /claims/:id
+* POST /claims
+* PUT /claims/:id
+* POST /claims/:id/predict-denial-risk
+* POST /claims/:id/generate-appeal
+
+### Tasks
+
+* GET /tasks
+* POST /tasks
+* PUT /tasks/:id
+* DELETE /tasks/:id
+
+### Chatbot
+
+* POST /chat/message
+* GET /chat/history
+* POST /chat/reset
+
+### Analytics
+
+* GET /analytics/dashboard
+* GET /analytics/patient-access
+* GET /analytics/prior-auth
+* GET /analytics/revenue-cycle
+
+---
+
+## 13. Future AI Architecture
+
+Design the app so it can later support:
+
+### RAG System
+
+Use separate RAG pipelines for:
+
+* Patient FAQs
+* Insurance eligibility rules
+* Prior authorization payer rules
+* Clinical documentation requirements
+* Billing/coding rules
+* Claim denial policies
+
+### Vector Database
+
+Prepare for:
+
+* Pinecone
+* Weaviate
+* Chroma
+* FAISS
+* PostgreSQL pgvector
+
+### Agent Workflows
+
+Prepare for:
+
+* LangGraph
+* RAGGraph
+* Multi-agent workflows
+* MCP-style tool orchestration
+
+Example agents:
+
+* Scheduling Agent
+* Eligibility Verification Agent
+* Prior Authorization Agent
+* Claim Review Agent
+* Denial Appeal Agent
+* Patient Support Agent
+
+### AI Safety
+
+The AI should:
+
+* Not give medical diagnosis
+* Not replace a doctor
+* Clearly say when staff review is required
+* Explain uncertainty
+* Avoid hallucinating payer rules
+* Use retrieved documents when connected to RAG
+* Keep audit trail of AI suggestions
+
+---
+
+## 14. Privacy and Compliance
+
+Include a section or design notes for HIPAA-aware architecture.
+
+Important:
+
+* Use synthetic data only for demo
+* Do not include real patient data
+* Encrypt sensitive information in production
+* Use role-based access control
+* Use audit logging
+* Limit access by role
+* Add disclaimer that the demo is not connected to real medical records
+* AI recommendations require human review
+
+Add footer note:
+“This demo uses synthetic data and is intended for healthcare workflow demonstration only.”
+
+---
+
+## 15. Frontend Tech Stack
+
+Use a modern frontend stack.
+
+Preferred:
+
+* React
+* Next.js
+* TypeScript
+* Tailwind CSS
+* shadcn/ui
+* Recharts for charts
+* Lucide icons
+* Zustand or React Context for state management
+
+Make the code clean, modular, and easy to expand.
+
+Folder structure example:
+
+/app
+/dashboard
+/patient-access
+/scheduling
+/insurance
+/prior-authorization
+/revenue-cycle
+/claims
+/ai-assistant
+/tasks
+/analytics
+/settings
+
+/components
+/layout
+/cards
+/tables
+/forms
+/chat
+/charts
+/accessibility
+
+/lib
+mockData.ts
+api.ts
+utils.ts
+constants.ts
+
+/types
+patient.ts
+appointment.ts
+priorAuth.ts
+claim.ts
+task.ts
+chat.ts
+
+---
+
+## 16. Important UX Writing Style
+
+Use simple and clear language.
+
+Good examples:
+
+* “Insurance needs review”
+* “Missing document”
+* “High denial risk”
+* “Send reminder”
+* “Review claim”
+* “Ask AI Assistant”
+* “This case may need prior authorization”
+
+Avoid:
+
+* “Operationalize payer intelligence”
+* “Execute eligibility pathway”
+* “Revenue optimization pipeline”
+* “Process entity”
+
+The app should feel understandable to both healthcare staff and elderly patients.
+
+---
+
+## 17. Demo Data Requirements
+
+Create at least:
+
+* 20 patients
+* 15 appointments
+* 10 prior authorization cases
+* 15 claims
+* 10 tasks
+* 20 chatbot example messages
+
+Include realistic statuses:
+
+* Some patients verified
+* Some insurance pending
+* Some high no-show risk
+* Some prior auth approved
+* Some prior auth denied
+* Some claims high denial risk
+* Some claims paid
+* Some tasks overdue
+
+---
+
+## 18. Deliverable Expectations
+
+Build a polished, clickable prototype or full-stack demo.
+
+The app should include:
+
+* Working navigation
+* Mock dashboard metrics
+* Mock tables
+* Search/filter interactions
+* Patient details view
+* Prior auth details view
+* Claim details view
+* Chatbot UI
+* Accessibility settings
+* Clean responsive layout
+* Calm elder-friendly theme
+* Clear placeholder areas for future AI integrations
+
+Prioritize:
+
+1. Clear workflow
+2. Easy-to-read UI
+3. Realistic healthcare operations logic
+4. Modular code
+5. Future AI-readiness
+
+---
+
+## 19. Final Product Feel
+
+The final app should feel like:
+
+A calm, trustworthy healthcare operations command center that helps staff and patients complete complicated healthcare tasks more easily.
+
+It should not feel like a generic AI dashboard.
+
+It should feel:
+
+* Human
+* Professional
+* Accessible
+* Reliable
+* Easy to understand
+* Helpful for elderly users
+* Useful for healthcare staff
+* Ready for future AI integration
+
+---
+
+## 20. Build Order
+
+Build in this order:
+
+1. App layout and theme
+2. Sidebar and navigation
+3. Mock data
+4. Dashboard
+5. Patient Access page
+6. Scheduling page
+7. Insurance Verification page
+8. Prior Authorization page
+9. Prior Authorization detail page
+10. Revenue Cycle page
+11. Claim detail page
+12. AI Assistant chatbot page
+13. Tasks page
+14. Analytics page
+15. Settings and accessibility
+16. Responsive design polish
+17. Final demo polish
+
+Make sure all pages are visually consistent and easy to read.
+
+Start by generating the full project structure, then implement the UI pages, mock data, reusable components, and basic interactions.
