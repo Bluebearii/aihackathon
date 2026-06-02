@@ -3,7 +3,7 @@ Adds expanded visualization cells to the bottom of cms_data_pipeline.ipynb
 """
 import json
 
-NOTEBOOK_PATH = r"cms_data_pipeline.ipynb"
+NOTEBOOK_PATH = r"notebook/cms_data_pipeline.ipynb"
 
 # Read existing notebook
 with open(NOTEBOOK_PATH, 'r', encoding='utf-8') as f:

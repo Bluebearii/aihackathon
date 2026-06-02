@@ -77,7 +77,9 @@ aihackathon/
 ├── Document/
 │   ├── instruction_app.txt      # Full application specification
 │   └── api.txt                  # CMS API endpoint reference
-├── cms_data_pipeline.ipynb      # Jupyter notebook for data exploration & visualization
+├── notebook/
+│   ├── cms_data_pipeline.ipynb   # Jupyter notebook for data exploration & visualization
+│   └── no_show.ipynb             # Medical appointment no-show analysis notebook
 ├── dashboard.py                 # ⭐ Interactive Streamlit dashboard (29+ charts)
 ├── import_all_cms_data.py       # Standalone script to import 1.5M records into PostgreSQL
 ├── generate_report.py           # Generates .docx analysis report with matplotlib charts
@@ -292,7 +294,7 @@ DB_CONFIG = {
 }
 ```
 
-#### In `cms_data_pipeline.ipynb` (Section 2.1 — Configuration cell):
+#### In `notebook/cms_data_pipeline.ipynb` (Section 2.1 — Configuration cell):
 ```python
 DB_CONFIG = {
     'host': 'localhost',
@@ -363,7 +365,7 @@ TOTAL_RECORDS = 1_500_000   # Change this to any number, or None for ALL (~10M+)
 
 For quick exploration and visualization, the Jupyter notebook fetches a smaller sample:
 
-1. Open `cms_data_pipeline.ipynb` in VS Code
+1. Open `notebook/cms_data_pipeline.ipynb` in VS Code
 2. Select the **"Python (CareFlow AI)"** kernel
 3. Run cells from **Section 1** through **Section 4** sequentially
 
@@ -375,7 +377,7 @@ The notebook fetches 10,000 records by default and provides interactive charts.
 
 ## Using the Jupyter Notebook
 
-The notebook `cms_data_pipeline.ipynb` is organized into 8 sections:
+The notebook `notebook/cms_data_pipeline.ipynb` is organized into 8 sections:
 
 | Section | What it Does | Safe to Re-run? |
 |---------|-------------|-----------------|

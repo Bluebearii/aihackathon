@@ -4,7 +4,7 @@ and relabels summary table columns for clarity.
 """
 import json
 
-NB = r"cms_data_pipeline.ipynb"
+NB = r"notebook/cms_data_pipeline.ipynb"
 
 with open(NB, 'r', encoding='utf-8') as f:
     nb = json.load(f)
