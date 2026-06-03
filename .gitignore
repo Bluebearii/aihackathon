@@ -1,0 +1,13 @@
+# Ignore raw data files
+data/raw/
+
+# Ignore processed data (optional, if large)
+data/processed/
+
+# Python / Jupyter
+__pycache__/
+.ipynb_checkpoints/
+
+# Virtual environments
+venv/
+.venv/
