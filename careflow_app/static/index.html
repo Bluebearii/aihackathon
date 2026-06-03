@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareFlow AI Platform</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>CareFlow <span>AI</span></h2>
+            </div>
+            <nav class="nav-menu">
+                <button class="nav-item active" data-target="schedule-tab">
+                    <span class="icon">📅</span> Schedule Optimizer
+                </button>
+                <button class="nav-item" data-target="pricing-tab">
+                    <span class="icon">💰</span> Pricing Auditor
+                </button>
+                <button class="nav-item" data-target="oop-tab">
+                    <span class="icon">🛡️</span> OOP Estimator
+                </button>
+                <button class="nav-item" data-target="analytics-tab">
+                    <span class="icon">📊</span> Deep Analytics
+                </button>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            
+            <!-- Schedule Optimizer Tab -->
+            <section id="schedule-tab" class="tab-content active">
+                <header class="tab-header">
+                    <h1>Schedule Optimizer</h1>
+                    <p>AI-driven appointment risk scoring and intervention.</p>
+                </header>
+                
+                <div class="kpi-row">
+                    <div class="kpi-card">
+                        <h3>Total Appointments (Tomorrow)</h3>
+                        <p class="kpi-value">142</p>
+                    </div>
+                    <div class="kpi-card danger">
+                        <h3>High Risk No-Shows</h3>
+                        <p class="kpi-value">18</p>
+                    </div>
+                    <div class="kpi-card success">
+                        <h3>Recovered Revenue</h3>
+                        <p class="kpi-value">$2,450</p>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <h3>Tomorrow's Schedule</h3>
+                    <table id="schedule-table">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Patient</th>
+                                <th>Condition</th>
+                                <th>Wait Time</th>
+                                <th>AI Risk Score</th>
+                                <th>Recommended Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Pricing Auditor Tab -->
+            <section id="pricing-tab" class="tab-content">
+                <header class="tab-header">
+                    <h1>Pricing Efficiency Auditor</h1>
+                    <p>Identify revenue gaps and excessive Medicare write-offs.</p>
+                </header>
+                <div class="table-container">
+                    <h3>High-Risk Pricing Discrepancies</h3>
+                    <table id="pricing-table">
+                        <thead>
+                            <tr>
+                                <th>State</th>
+                                <th>Procedure</th>
+                                <th>Avg Charge</th>
+                                <th>Medicare Payout</th>
+                                <th>Write-off %</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- OOP Estimator Tab -->
+            <section id="oop-tab" class="tab-content">
+                <header class="tab-header">
+                    <h1>Out-of-Pocket Estimator</h1>
+                    <p>Predict patient cost-sharing burdens to prevent bad debt.</p>
+                </header>
+                <div class="table-container">
+                    <h3>Upcoming High-Burden Patients</h3>
+                    <table id="oop-table">
+                        <thead>
+                            <tr>
+                                <th>Patient</th>
+                                <th>Procedure</th>
+                                <th>Insurance</th>
+                                <th>Total Cost</th>
+                                <th>Patient Responsibility</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Deep Analytics Tab (Streamlit) -->
+            <section id="analytics-tab" class="tab-content">
+                <header class="tab-header">
+                    <h1>Deep Dive Analytics</h1>
+                    <p>Full interactive data visualization dashboard.</p>
+                </header>
+                <div class="iframe-container">
+                    <iframe src="http://localhost:8501" frameborder="0" width="100%" height="100%"></iframe>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast">Action completed successfully.</div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

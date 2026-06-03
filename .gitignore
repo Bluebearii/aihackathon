@@ -51,6 +51,7 @@ desktop.ini
 # Jupyter Notebooks
 # =========================
 .ipynb_checkpoints/
+notebook/*.py
 
 # =========================
 # Data Files (large datasets)
