@@ -1,0 +1,5 @@
+setup.py
+healthcare_ai_analytics.egg-info/PKG-INFO
+healthcare_ai_analytics.egg-info/SOURCES.txt
+healthcare_ai_analytics.egg-info/dependency_links.txt
+healthcare_ai_analytics.egg-info/top_level.txt
