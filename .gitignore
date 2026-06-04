@@ -1,13 +1,52 @@
-# Ignore raw data files
-data/raw/
+# --- Large / generated (do not commit) ---
+output/
+synthea/
+synthea-with-dependencies.jar
+*.jar
 
-# Ignore processed data (optional, if large)
+# Synthea & build artifacts
+**/build/
+**/dist/
+*.zip
+*.tar
+
+# Generated CSV / parquet at repo root or elsewhere
+*.parquet
+
+# --- Data (download or generate locally) ---
+data/raw/
 data/processed/
 
-# Python / Jupyter
+# --- Python ---
 __pycache__/
-.ipynb_checkpoints/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
 
 # Virtual environments
 venv/
 .venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Streamlit / secrets
+.streamlit/secrets.toml
+.env
+.env.*
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Logs
+*.log
