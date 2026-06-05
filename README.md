@@ -171,7 +171,24 @@ uvicorn main:app --reload
 ```
 *Open `http://localhost:8000` in your browser. (Note: Keep the Streamlit dashboard running in a separate terminal if the web app embeds it).*
 
-### 5. Generate Word Reports
+### 5. Run the WeCarePeople Web App (React + FastAPI)
+The primary patient and admin portal, newly developed:
+
+**Backend Server:**
+```powershell
+.\venv\Scripts\activate
+cd carepoint-clinic\backend
+uvicorn main:app --port 8001 --reload
+```
+
+**Frontend (React/Vite):**
+```powershell
+cd carepoint-clinic\frontend
+npm run dev
+```
+*(Open `http://localhost:5173` in your browser. Log in as `sarah@carepoint.com` to see the Admin Analytics Hub, which embeds the Streamlit dashboard!)*
+
+### 6. Generate Word Reports
 To generate professional `.docx` reports summarizing the data insights:
 ```powershell
 .\venv\Scripts\activate
@@ -180,18 +197,18 @@ python generate_report_expanded.py
 ```
 *The resulting documents and charts will be saved in the `reports/` directory.*
 
-### 6. Run Utility Scripts (Optional)
-If you need to patch the notebook or update definitions, you can run the utility scripts:
-```powershell
-python add_payment_definitions.py
-```
+### 7. Team Collaboration: Adding New Dashboards via the AI Analytics Hub
+The new WeCarePeople Admin portal includes a dynamic **AI Analytics Hub**. This allows your team to build their own independent dashboards without touching the main codebase!
 
----
+**How teammates can add their work:**
+1. A teammate creates their own data visualizations (e.g., using a Jupyter Notebook and converting the charts into a simple Streamlit `.py` script).
+2. They run their Streamlit app locally (e.g., `streamlit run my_model.py --server.port 8502`).
+3. Log into the WeCarePeople web app as the Admin (`sarah@carepoint.com`).
+4. Navigate to the **AI Analytics** page.
+5. In the **Add New Dashboard** form, type a name (e.g., "Alice's Model") and paste the URL (e.g., `http://localhost:8502`).
+6. Click **+ Register URL**. Their dashboard will instantly be embedded into the hub as a new tab!
 
-## Database Schema & Data Source
-
-**Source:** CMS Medicare Physician & Other Practitioners
-**API Endpoint:** `https://data.cms.gov/data-api/v1/dataset/92396110-2aed-4d63-a6a2-5d6207d46a29/data`
+### 8. Run Utility Scripts (Optional)
 
 The PostgreSQL table `cms_medicare_providers` maps raw CMS columns to human-readable names:
 - **ID & Demographics:** `provider_npi`, `provider_specialty`, `provider_gender`

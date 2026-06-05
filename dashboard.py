@@ -252,6 +252,7 @@ with st.sidebar:
         "📈 Utilization & Stats",
         "📋 Data Tables",
         "🚫 No-Show Analysis",
+        "🛡️ Benefit Cost Sharing Analysis",
     ]
     page = st.radio("Navigate", pages, label_visibility="collapsed")
     st.markdown("---")
@@ -1510,7 +1511,7 @@ elif page == "🚫 No-Show Analysis":
 
     @st.cache_data(ttl=3600, show_spinner="Loading No-Show Data...")
     def load_noshow_data():
-        df_ns = pd.read_csv('data_source/medical-appointments-no-show-en.csv')
+        df_ns = pd.read_csv('data/raw/medical-appointments-no-show-en.csv')
         df_ns['appointment_date'] = pd.to_datetime(df_ns['appointment_date'], format='%d/%m/%Y', errors='coerce')
         df_ns['no_show_binary'] = (df_ns['no_show'] == 'yes').astype(int)
         df_ns.drop_duplicates(inplace=True)
@@ -1721,3 +1722,46 @@ elif page == "🚫 No-Show Analysis":
             
     except Exception as e:
         st.error(f"Could not load No-Show dataset: {e}")
+
+# ============================================================
+# PAGE 10: BENEFIT COST SHARING ANALYSIS
+# ============================================================
+
+elif page == "🛡️ Benefit Cost Sharing Analysis":
+    st.markdown('''
+    <div class="main-header">
+        <h1>🛡️ Benefit Cost Sharing Analysis</h1>
+        <p>Exploring the Benefits & Cost Sharing dataset from the Jupyter Notebook</p>
+    </div>
+    ''', unsafe_allow_html=True)
+
+    @st.cache_data(ttl=3600, show_spinner="Loading Benefits Data...")
+    def load_benefits_data():
+        # Loading a chunk of the raw data (to prevent crashing since it is 375MB)
+        # Note: In production, you would point this to the cleaned CSV from your notebook!
+        df_b = pd.read_csv('data/raw/Benefits_Cost_Sharing_PUF.csv', nrows=5000, low_memory=False)
+        return df_b
+
+    try:
+        df_b = load_benefits_data()
+        
+        c1, c2 = st.columns(2)
+        with c1:
+            st.markdown(kpi_card("Total Records (Sample)", f"{len(df_b):,}", "", "#2A9D8F"), unsafe_allow_html=True)
+        with c2:
+            st.markdown(kpi_card("Total Columns", f"{len(df_b.columns):,}", "", "#E76F51"), unsafe_allow_html=True)
+            
+        st.markdown("---")
+        
+        st.markdown('<div class="section-header">📊 Data Preview</div>', unsafe_allow_html=True)
+        st.dataframe(df_b.head(100), use_container_width=True)
+        
+        st.markdown(analysis_box(
+            "This is a raw sample of the Benefits and Cost Sharing PUF dataset. "
+            "To view the fully cleaned data, you must export it from your `benefits_cost_sharing_processing.ipynb` "
+            "notebook and update the path here!",
+            problem="Raw datasets often contain unreadable column names and missing values."
+        ), unsafe_allow_html=True)
+        
+    except Exception as e:
+        st.error(f"Could not load Benefits dataset: {e}")
