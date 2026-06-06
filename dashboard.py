@@ -395,17 +395,18 @@ if page == "📊 Dashboard Overview":
         st.markdown("### 📋 Pipeline Flow")
         st.markdown("""
         ```
+
         New Patient Appointment
-            │
-            ├── No-Show Model ──→ P(no_show)
-            │   Revenue lost BEFORE work
-            │
-            ├── Claim Denial Model ──→ P(denial)
-            │   Revenue lost AFTER work
-            │
-            └── Combined Risk Score
-                Expected $ Loss + Risk Tier
-                → Drives intervention strategy
+
+            No-Show Model ──→ P(no_show)
+                -Revenue lost BEFORE work
+            
+            Claim Denial Model ──→ P(denial)
+                -Revenue lost AFTER work
+            
+            Combined Risk Score
+            Expected $ Loss + Risk Tier
+            → Drives intervention strategy
         ```
         """)
 
