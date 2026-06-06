@@ -100,8 +100,10 @@ st.markdown("""
 # ╔═══════════════════════════════════════════════════════════════════════════╗
 # ║  PATHS                                                                   ║
 # ╚═══════════════════════════════════════════════════════════════════════════╝
-SYNTHEA_PATH = "/Users/tommynguyen/codingprojects/AIhackathon/output/csv/"
-CLAIMS_PATH  = "/Users/tommynguyen/codingprojects/AIhackathon/csv/"
+BASE_DIR     = os.path.dirname(os.path.abspath(__file__))
+SYNTHEA_PATH = os.path.join(BASE_DIR, "data")
+CLAIMS_PATH  = os.path.join(BASE_DIR, "data")
+
 
 HOSPITAL_LAT = 32.7767
 HOSPITAL_LON = -96.7970
