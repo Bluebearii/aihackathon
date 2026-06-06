@@ -508,7 +508,7 @@ elif page == "🎯 Patient Risk Predictor":
         fig_gauge = go.Figure(go.Indicator(
             mode="gauge+number",
             value=risk['risk_score'],
-            number={'suffix': '/100', 'font': {'size': 40, 'family': 'Space Mono'}},
+            number={'suffix': '/100', 'font': {'size': 24, 'family': 'Space Mono'}},
             gauge={
                 'axis': {'range': [0, 100], 'tickwidth': 1},
                 'bar': {'color': tier_color},
