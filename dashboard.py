@@ -220,18 +220,11 @@ def chart_layout(title="", height=450, **kwargs):
 # DATABASE & DATA LOADING
 # ============================================================
 
-DB_CONFIG = {
-    'host': 'localhost', 'port': 5433, 'database': 'careflow_ai',
-    'user': 'postgres', 'password': 'postgres',
-}
-DATABASE_URL = f"postgresql://{DB_CONFIG['user']}:{DB_CONFIG['password']}@{DB_CONFIG['host']}:{DB_CONFIG['port']}/{DB_CONFIG['database']}"
+import os
 
-
-@st.cache_data(ttl=3600, show_spinner="Loading CMS Medicare data from PostgreSQL...")
+@st.cache_data(ttl=3600, show_spinner="Loading CMS Medicare data...")
 def load_data():
-    engine = create_engine(DATABASE_URL, echo=False)
-    df = pd.read_sql("SELECT * FROM cms_medicare_providers", engine)
-    return df
+    return pd.read_csv("sample_data/cms_medicare_providers.csv")
 
 
 # ============================================================
