@@ -1,5 +1,5 @@
 :root {
-  /* WeCarePeople Design System */
+  /* Care Flow AI Design System */
   --color-primary: #005f73; /* soft deep blue */
   --color-secondary: #0a9396; /* soft teal */
   --color-accent: #94d2bd; /* light green accent */
@@ -200,4 +200,9 @@ tr:hover {
 }
 .animate-pop {
   animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; max-height: 0; transform: scaleY(0.95); }
+  to { opacity: 1; max-height: 1000px; transform: scaleY(1); }
 }

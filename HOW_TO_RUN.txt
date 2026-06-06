@@ -1,0 +1,59 @@
+HOW TO RUN THE PROJECT LOCALLY
+==============================
+
+This guide provides step-by-step instructions to run the Backend (FastAPI), Frontend (React/Vite), and Streamlit Dashboard concurrently. You will need to open three separate terminal windows.
+
+PREREQUISITES
+-------------
+- Make sure you have Node.js and Python installed.
+- Your Python virtual environment (venv) should be created.
+
+
+1. RUN THE BACKEND (FastAPI)
+----------------------------
+1. Open your first terminal.
+2. Navigate to the backend directory:
+   cd carepoint-clinic/backend
+
+3. Activate the virtual environment (located in the root folder):
+   - Windows:
+     ..\..\venv\Scripts\activate
+   - Mac/Linux:
+     source ../../venv/bin/activate
+
+4. Run the FastAPI server:
+   uvicorn main:app --reload
+   
+   (The backend will now be running at http://localhost:8000)
+
+
+2. RUN THE FRONTEND (React + Vite)
+----------------------------------
+1. Open a second terminal window.
+2. Navigate to the frontend directory:
+   cd carepoint-clinic/frontend
+
+3. Install the dependencies (if you haven't already):
+   npm install
+
+4. Start the development server:
+   npm run dev
+   
+   (The frontend will typically run at http://localhost:5173)
+
+
+3. RUN THE STREAMLIT DASHBOARD
+------------------------------
+1. Open a third terminal window.
+2. Ensure you are in the root directory (aihackathon).
+
+3. Activate the virtual environment:
+   - Windows:
+     venv\Scripts\activate
+   - Mac/Linux:
+     source venv/bin/activate
+
+4. Start the Streamlit application:
+   streamlit run dashboard.py
+   
+   (The Streamlit dashboard will open in your browser, usually at http://localhost:8501)

@@ -4,9 +4,9 @@ const RewardsPage = () => {
   return (
     <div className="container animate-slide-up">
       <div className="card" style={{ textAlign: 'center', background: 'var(--color-primary)', color: 'white' }}>
-        <h1 style={{ color: 'white' }}>WeCarePeople Points System</h1>
+        <h1 style={{ color: 'white' }}>Care Flow AI Points System</h1>
         <p style={{ color: '#e0fbfc', fontSize: '1.1rem', maxWidth: '800px', margin: '0 auto' }}>
-          WeCarePeople Points are our way of encouraging patients to stay consistent with their appointments. Points are added only after a patient arrives at the office and the visit is confirmed by staff.
+          Care Flow AI Points are our way of encouraging patients to stay consistent with their appointments. Points are added only after a patient arrives at the office and the visit is confirmed by staff.
         </p>
       </div>
 

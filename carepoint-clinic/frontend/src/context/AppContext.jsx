@@ -8,7 +8,7 @@ export const AppProvider = ({ children }) => {
   const [appointments, setAppointments] = useState([]);
   const [points, setPoints] = useState([]);
   
-  const API_URL = 'http://localhost:8001';
+  const API_URL = 'http://localhost:8000';
 
   useEffect(() => {
     // We start logged out, but if we had localStorage token we'd check it here
@@ -20,7 +20,7 @@ export const AppProvider = ({ children }) => {
       setUser(res.data);
       fetchAppointments(res.data.id);
       fetchPoints(res.data.id);
-      return true;
+      return res.data;
     } catch (err) {
       console.error("Error logging in", err);
       return false;
@@ -33,7 +33,7 @@ export const AppProvider = ({ children }) => {
       setUser(res.data);
       setAppointments([]);
       setPoints([]);
-      return true;
+      return res.data;
     } catch (err) {
       console.error("Error signing up", err);
       return false;

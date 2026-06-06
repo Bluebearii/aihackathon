@@ -4,9 +4,9 @@ const AboutPage = () => {
   return (
     <div className="container animate-slide-up">
       <div className="card" style={{ padding: '4rem 2rem', textAlign: 'center' }}>
-        <h1>About WeCarePeople</h1>
+        <h1>About Care Flow AI</h1>
         <p style={{ fontSize: '1.2rem', maxWidth: '800px', margin: '0 auto' }}>
-          At WeCarePeople, our mission is to provide accessible, high-quality healthcare while ensuring our patients feel valued and respected. We focus on patient care, convenience, preventive health, and improving patient attendance through positive reinforcement.
+          At Care Flow AI, our mission is to provide accessible, high-quality healthcare while ensuring our patients feel valued and respected. We focus on patient care, convenience, preventive health, and improving patient attendance through positive reinforcement.
         </p>
       </div>
 
@@ -21,7 +21,7 @@ const AboutPage = () => {
         </div>
         <div className="card">
           <h3>Our Office Values</h3>
-          <p>Trust, transparency, and consistency. We value your time as much as you do, which is why we created the WeCarePeople Points system to thank you for showing up to your scheduled visits.</p>
+          <p>Trust, transparency, and consistency. We value your time as much as you do, which is why we created the Care Flow AI Points system to thank you for showing up to your scheduled visits.</p>
         </div>
       </div>
     </div>

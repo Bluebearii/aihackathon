@@ -1,9 +1,11 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
 import { History, Calendar } from 'lucide-react';
 
 const PatientDashboard = () => {
   const { user, appointments, points } = useAppContext();
+  const navigate = useNavigate();
 
   if (!user || user.role !== 'patient') {
     return (
@@ -55,6 +57,13 @@ const PatientDashboard = () => {
           ) : (
             <p>No upcoming appointments.</p>
           )}
+          <button 
+            onClick={() => navigate('/calendar')} 
+            className="btn btn-primary" 
+            style={{ width: '100%', marginTop: '1rem', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px' }}
+          >
+            <Calendar size={18} /> View Calendar to Book
+          </button>
         </div>
       </div>
 

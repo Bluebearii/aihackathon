@@ -8,7 +8,7 @@ const HomePage = () => {
       <div style={{ textAlign: 'center', padding: '4rem 0', background: 'var(--color-surface)', borderRadius: 'var(--border-radius-lg)', boxShadow: 'var(--shadow-md)', marginBottom: '3rem' }}>
         <h1 style={{ fontSize: '3rem', marginBottom: '1rem' }}>Healthcare That Rewards Consistency</h1>
         <p style={{ fontSize: '1.2rem', maxWidth: '800px', margin: '0 auto 2rem auto', color: 'var(--color-text-main)' }}>
-          Book your appointment, show up for your visit, and earn <strong>WeCarePeople Points</strong> every time our staff confirms your attendance.
+          Book your appointment, show up for your visit, and earn <strong>Care Flow AI Points</strong> every time our staff confirms your attendance.
         </p>
         <div style={{ display: 'flex', justifyContent: 'center', gap: '15px' }}>
           <Link to="/book" className="btn btn-primary" style={{ fontSize: '1.1rem', padding: '15px 30px' }}>Book Appointment</Link>

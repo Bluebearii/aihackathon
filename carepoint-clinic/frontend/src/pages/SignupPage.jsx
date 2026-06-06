@@ -25,72 +25,19 @@ const SignupPage = () => {
     password: ''
   });
   
-  const [medicalConditions, setMedicalConditions] = useState([]);
   const [error, setError] = useState('');
-
-  // Listen for Chatbot filling out the form automatically
-  useEffect(() => {
-    const handleStorageChange = () => {
-      const pending = localStorage.getItem('pending_medical_conditions');
-      if (pending) {
-        try {
-          const aiConditions = JSON.parse(pending);
-          // Only add conditions that exist in our common list (basic fuzzy match)
-          const matchedConditions = [];
-          aiConditions.forEach(aiCond => {
-            const match = COMMON_CONDITIONS.find(c => c.toLowerCase().includes(aiCond.toLowerCase()));
-            if (match && !medicalConditions.includes(match)) {
-              matchedConditions.push(match);
-            } else if (!match) {
-               // If AI mentions something not in the list, just add it as a custom string
-               matchedConditions.push(aiCond);
-            }
-          });
-          
-          if (matchedConditions.length > 0) {
-            setMedicalConditions(prev => [...new Set([...prev, ...matchedConditions])]);
-          }
-          localStorage.removeItem('pending_medical_conditions');
-        } catch (e) {}
-      }
-    };
-
-    // Initial check
-    handleStorageChange();
-    
-    // Listen for cross-tab or same-window storage updates from the bot
-    window.addEventListener('storage', handleStorageChange);
-    // Custom event just in case it's in the same window and storage event doesn't fire
-    window.addEventListener('bot_medical_update', handleStorageChange);
-    
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-      window.removeEventListener('bot_medical_update', handleStorageChange);
-    };
-  }, []);
 
   const handleChange = (e) => {
     setFormData({...formData, [e.target.name]: e.target.value});
-  };
-
-  const handleConditionToggle = (cond) => {
-    if (medicalConditions.includes(cond)) {
-      setMedicalConditions(medicalConditions.filter(c => c !== cond));
-    } else {
-      setMedicalConditions([...medicalConditions, cond]);
-    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     
-    // In a real app, we would also submit medicalConditions to the backend here.
-    // For this hackathon, we'll append it to the user object or just let the signup proceed.
-    
-    const success = await signup(formData);
-    if (success) {
-      navigate('/dashboard');
+    const userResult = await signup(formData);
+    if (userResult) {
+      navigate('/medical-history'); // Redirect new users to complete their medical history
     } else {
       setError('Error creating account. Email might already be registered.');
     }
@@ -142,46 +89,7 @@ const SignupPage = () => {
             <input type="text" name="address" className="form-control" value={formData.address} onChange={handleChange} required placeholder="123 Main St, City, State, ZIP" style={{ background: '#f8fafc' }}/>
           </div>
 
-          <h3 style={{ borderBottom: '2px solid #f1f5f9', paddingBottom: '10px', marginBottom: '20px', marginTop: '30px', color: '#334155' }}>2. Medical History</h3>
-          <p style={{ fontSize: '0.9rem', color: '#64748b', marginBottom: '15px' }}>
-            Check any conditions you currently have or have been treated for in the past. 
-            <strong style={{ color: '#0f766e', marginLeft: '5px' }}>Try telling CareBot "I have Asthma and Diabetes" to watch this auto-fill!</strong>
-          </p>
-          
-          {/* Grid of Checkboxes */}
-          <div style={{ 
-            display: 'grid', 
-            gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', 
-            gap: '12px',
-            background: '#f8fafc',
-            padding: '20px',
-            borderRadius: '8px',
-            border: '1px solid #e2e8f0'
-          }}>
-            {COMMON_CONDITIONS.map((cond, idx) => (
-              <label key={idx} style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '0.95rem', color: '#334155' }}>
-                <input 
-                  type="checkbox" 
-                  checked={medicalConditions.includes(cond)}
-                  onChange={() => handleConditionToggle(cond)}
-                  style={{ width: '18px', height: '18px', accentColor: '#0f766e', cursor: 'pointer' }}
-                />
-                {cond}
-              </label>
-            ))}
-            {/* Render any custom conditions added by AI */}
-            {medicalConditions.filter(c => !COMMON_CONDITIONS.includes(c)).map((customCond, idx) => (
-              <label key={`custom-${idx}`} style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '0.95rem', color: '#0f766e', fontWeight: 'bold' }}>
-                <input 
-                  type="checkbox" 
-                  checked={true}
-                  onChange={() => handleConditionToggle(customCond)}
-                  style={{ width: '18px', height: '18px', accentColor: '#0f766e', cursor: 'pointer' }}
-                />
-                {customCond} (Added by AI)
-              </label>
-            ))}
-          </div>
+
 
           <button type="submit" style={{ 
             width: '100%', padding: '16px', fontSize: '1.1rem', marginTop: '30px', 

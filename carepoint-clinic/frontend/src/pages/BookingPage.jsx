@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
 
 const BookingPage = () => {
   const { bookAppointment } = useAppContext();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const prefillDate = queryParams.get('date') || '';
+  const prefillTime = queryParams.get('time') || '';
+
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     appointment_type: 'Annual Checkup',
-    appointment_date: '',
-    appointment_time: '',
+    appointment_date: prefillDate,
+    appointment_time: prefillTime,
     reason_for_visit: '',
     insurance_provider: ''
   });

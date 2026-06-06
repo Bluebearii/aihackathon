@@ -227,3 +227,49 @@ The PostgreSQL table `cms_medicare_providers` maps raw CMS columns to human-read
 
 ---
 > **Disclaimer:** This demo uses synthetic/public CMS data and is intended for healthcare workflow demonstration only. It is not connected to real medical records and should not be used for clinical decision-making.
+
+---
+
+## Team Collaboration & Streamlit Data Strategy
+
+Because the CMS Medicare dataset and other raw data sources can be several gigabytes, **DO NOT** commit `.csv` data files into the main branch. 
+
+Follow these steps to share the dashboard across the team without blowing up the repo size:
+
+### 1. Ignore Local Datasets
+Ensure your `.gitignore` is configured to ignore the `data/` folder and any `.csv` files:
+```text
+# .gitignore
+*.csv
+data/
+data/raw/
+```
+
+### 2. Connect to a Central Database or Cloud Storage
+Instead of relying on `pd.read_csv('data/raw/dataset.csv')`, update the dashboard script to pull from a shared SQL Database (like PostgreSQL/Snowflake) or an AWS S3 bucket:
+```python
+import streamlit as st
+import pandas as pd
+from sqlalchemy import create_engine
+
+# Cache the connection and data fetch so it doesn't run on every interaction
+@st.cache_resource
+def init_connection():
+    return create_engine(st.secrets["postgres"]["url"])
+
+@st.cache_data
+def load_data():
+    engine = init_connection()
+    query = "SELECT * FROM medicare_data"
+    return pd.read_sql(query, engine)
+
+df = load_data()
+```
+
+### 3. Use Streamlit Secrets
+Never hardcode passwords or connection URLs in the script. Create a `.streamlit/secrets.toml` file on your local machine:
+```toml
+[postgres]
+url = "postgresql://username:password@hostname:5432/database"
+```
+*(Make sure to add `.streamlit/secrets.toml` to your `.gitignore`!)*

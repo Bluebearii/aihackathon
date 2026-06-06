@@ -36,17 +36,29 @@ tools = [
         "type": "function",
         "function": {
             "name": "navigate",
-            "description": "Navigate the user to a specific page in the application. Use this ONLY after completing the booking workflow if they are booking an appointment.",
+            "description": "Navigate the user to a specific page in the application. Use this ONLY after completing the booking workflow if they are booking an appointment, or when user explicitly asks to go somewhere.",
             "parameters": {
                 "type": "object",
                 "properties": {
                     "page": {
                         "type": "string",
-                        "enum": ["/", "/about", "/services", "/rewards", "/admin", "/analytics", "/book", "/dashboard", "/signup", "/login"],
+                        "enum": ["/", "/about", "/services", "/rewards", "/admin", "/analytics", "/book", "/dashboard", "/signup", "/login", "/medical-history", "/admin/calendar", "/admin/patients"],
                         "description": "The URL path to navigate to."
                     }
                 },
                 "required": ["page"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "show_medical_history_form",
+            "description": "Call this tool when the user clicks 'Medical History' or asks about their medical history form. This shows an interactive full medical history form with all conditions from the clinic form. This is ONLY for medical history - NOT for booking appointments.",
+            "parameters": {
+                "type": "object",
+                "properties": {},
+                "required": []
             }
         }
     },
@@ -81,18 +93,6 @@ tools = [
                 "required": ["urgency"]
             }
         }
-    },
-    {
-        "type": "function",
-        "function": {
-            "name": "show_medical_options_ui",
-            "description": "Call this tool to instantly display an interactive checklist of all common real-life medical conditions on the user's screen.",
-            "parameters": {
-                "type": "object",
-                "properties": {},
-                "required": []
-            }
-        }
     }
 ]
 
@@ -107,24 +107,36 @@ def chat_endpoint(req: ChatRequest):
 
     # Build the intelligent system prompt
     system_msg_content = """
-    You are CareBot, a helpful AI assistant for the WeCarePeople medical clinic. 
+    You are CareBot, a helpful AI assistant for the Care Flow AI medical clinic. 
     Always be polite, concise, and professional.
     
-    CRITICAL: If the user types "Medical History", asks to see a list of medical conditions, or asks for the medical history options, YOU MUST immediately call the `show_medical_options_ui` tool. DO NOT output conversational text saying you will do it. Just call the tool!
+    *** CRITICAL: MEDICAL HISTORY vs BOOKING ARE SEPARATE FLOWS ***
     
-    *** CRITICAL BOOKING WORKFLOW ***
-    If the user asks to book an appointment, YOU MUST strictly follow this exact conversational flow BEFORE calling the `navigate` tool to send them to /book:
+    MEDICAL HISTORY FLOW (when user types "Medical History" or asks about medical history):
+    - This is ONLY about filling out their medical history form. DO NOT ask about appointments.
+    - Call the `show_medical_history_form` tool IMMEDIATELY to display the interactive form.
+    - The form will ask about: patient name, height/weight, allergies, diagnosis, hospitalization history, 
+      surgeries, falls, previous treatments, imaging tests (EMG, CT Scan, MRI, X-Ray), 
+      and all 44 medical conditions from the clinic form.
+    - Auto-fill their name if they are logged in.
+    - DO NOT redirect to booking. DO NOT ask about appointments. Stay focused on medical history only.
     
-    STEP 1: Ask the user to confirm their full name and Date of Birth for security purposes. Wait for their response.
-    STEP 2: Once confirmed, ask them if they would like to provide any medical history or existing conditions right now. Tell them explicitly that doing this now via chat will save them time filling out forms at the clinic. Wait for their response.
-    STEP 3: If they list conditions, call the `update_medical_history` tool. If they decline or say no, proceed to Step 4.
-    STEP 4: You MUST immediately call the `navigate` tool with page="/book". DO NOT output text saying you are going to navigate them. Just call the tool!
+    BOOKING FLOW (ONLY when user explicitly says "Book Appointment" or asks to book):
+    - STEP 1: Ask the user to confirm their full name and Date of Birth. Wait for response.
+    - STEP 2: Ask if they want to provide medical history now. Wait for response.
+    - STEP 3: If they list conditions, call `update_medical_history`. If they decline, proceed.
+    - STEP 4: Call `navigate` with page="/book" to send them to the booking page.
     
-    Never skip these steps when someone mentions booking an appointment!
+    These are COMPLETELY SEPARATE flows. Never mix them up.
+    
+    OTHER ACTIONS:
+    - If user asks to talk to an agent, call `contact_agent`.
+    - If user asks about insurance, explain the clinic accepts most major providers.
+    - If user asks about points/rewards, explain the rewards system.
     """
     
     if req.user_context:
-        system_msg_content += f"\n\n[SYSTEM NOTE: The user is currently logged in. Their file shows Name: {req.user_context.get('name', 'Unknown')} and DOB: {req.user_context.get('dob', 'Unknown')}. You can use this information to ask them to confirm if these details are still correct.]"
+        system_msg_content += f"\n\n[SYSTEM NOTE: The user is currently logged in. Their file shows Name: {req.user_context.get('name', 'Unknown')} and DOB: {req.user_context.get('dob', 'Unknown')}. You can use this information to auto-fill forms and greet them by name.]"
     else:
         system_msg_content += "\n\n[SYSTEM NOTE: The user is NOT currently logged in. You must ask them for their name and DOB from scratch.]"
 
@@ -156,8 +168,18 @@ def chat_endpoint(req: ChatRequest):
                 "payload": function_args
             }
             
+            # Customize response message based on action
+            if function_name == "show_medical_history_form":
+                msg = "I'll pull up your medical history form now. Please review and fill in all the conditions below:"
+            elif function_name == "navigate":
+                msg = f"Taking you to the requested page now."
+            elif function_name == "update_medical_history":
+                msg = "I've updated your medical history with those conditions."
+            else:
+                msg = f"I am executing the {function_name.replace('_', ' ')} action for you now."
+            
             return ChatResponse(
-                message=f"I am executing the {function_name.replace('_', ' ')} action for you now.",
+                message=msg,
                 action=action_dict
             )
             
@@ -195,6 +217,9 @@ def search_endpoint(req: SearchRequest):
     /rewards (Points system)
     /admin (Admin portal)
     /analytics (AI analytics)
+    /admin/calendar (Calendar)
+    /admin/patients (Patient database)
+    /medical-history (Medical history form)
     
     User query: "{req.query}"
     
@@ -208,7 +233,8 @@ def search_endpoint(req: SearchRequest):
             temperature=0.0
         )
         route = response.choices[0].message.content.strip()
-        if route not in ["/", "/about", "/services", "/book", "/dashboard", "/rewards", "/admin", "/analytics", "/login", "/signup"]:
+        valid_routes = ["/", "/about", "/services", "/book", "/dashboard", "/rewards", "/admin", "/analytics", "/login", "/signup", "/admin/calendar", "/admin/patients", "/medical-history"]
+        if route not in valid_routes:
             route = "/"
         return SearchResponse(route=route)
     except Exception:
