@@ -230,46 +230,41 @@ The PostgreSQL table `cms_medicare_providers` maps raw CMS columns to human-read
 
 ---
 
-## Team Collaboration & Streamlit Data Strategy
+## Team Collaboration: Sharing with Teammates or a New Laptop
 
-Because the CMS Medicare dataset and other raw data sources can be several gigabytes, **DO NOT** commit `.csv` data files into the main branch. 
+If you or a teammate wants to run this exact project on a different laptop—while preserving all the mock patients and embedded Streamlit dashboards you've already set up—you must ensure the SQLite database is pushed to Git. By default, Git ignores `.db` files.
 
-Follow these steps to share the dashboard across the team without blowing up the repo size:
+### Step 1: Force-Add the Database to Git
+On the laptop where the data currently exists, open a terminal in the root project folder:
+```bash
+# Force Git to track the local database
+git add -f carepoint-clinic/backend/carepoint.db
 
-### 1. Ignore Local Datasets
-Ensure your `.gitignore` is configured to ignore the `data/` folder and any `.csv` files:
-```text
-# .gitignore
-*.csv
-data/
-data/raw/
+# Add all other changes
+git add .
+
+# Commit and push
+git commit -m "Include carepoint database for team sharing"
+git push origin main
 ```
 
-### 2. Connect to a Central Database or Cloud Storage
-Instead of relying on `pd.read_csv('data/raw/dataset.csv')`, update the dashboard script to pull from a shared SQL Database (like PostgreSQL/Snowflake) or an AWS S3 bucket:
-```python
-import streamlit as st
-import pandas as pd
-from sqlalchemy import create_engine
+### Step 2: Setup on the New Laptop
+On the new laptop (or for your teammate), clone the repository and start both servers:
 
-# Cache the connection and data fetch so it doesn't run on every interaction
-@st.cache_resource
-def init_connection():
-    return create_engine(st.secrets["postgres"]["url"])
+```bash
+# 1. Clone the repository
+git clone <your-repo-url>
+cd aihackathon/carepoint-clinic
 
-@st.cache_data
-def load_data():
-    engine = init_connection()
-    query = "SELECT * FROM medicare_data"
-    return pd.read_sql(query, engine)
+# 2. Start the Backend
+cd backend
+pip install -r requirements.txt
+uvicorn main:app --reload
 
-df = load_data()
+# 3. Start the Frontend (in a new terminal)
+cd ../frontend
+npm install
+npm run dev
 ```
 
-### 3. Use Streamlit Secrets
-Never hardcode passwords or connection URLs in the script. Create a `.streamlit/secrets.toml` file on your local machine:
-```toml
-[postgres]
-url = "postgresql://username:password@hostname:5432/database"
-```
-*(Make sure to add `.streamlit/secrets.toml` to your `.gitignore`!)*
+Because the `clinic.db` was committed, running the frontend on the new laptop will immediately display all existing patient accounts and embedded Streamlit tabs on the Admin Analytics page!
