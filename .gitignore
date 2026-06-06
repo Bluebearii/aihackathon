@@ -3,3 +3,6 @@ output/
 csv/
 *.csv
 *.zip
+!data/patients.csv
+!data/encounters.csv
+!data/claims_main.csv
