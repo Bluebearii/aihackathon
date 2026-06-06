@@ -1511,7 +1511,7 @@ elif page == "🚫 No-Show Analysis":
 
     @st.cache_data(ttl=3600, show_spinner="Loading No-Show Data...")
     def load_noshow_data():
-        df_ns = pd.read_csv('data/raw/medical-appointments-no-show-en.csv')
+        df_ns = pd.read_csv('sample_data/medical-appointments-no-show-en.csv')
         df_ns['appointment_date'] = pd.to_datetime(df_ns['appointment_date'], format='%d/%m/%Y', errors='coerce')
         df_ns['no_show_binary'] = (df_ns['no_show'] == 'yes').astype(int)
         df_ns.drop_duplicates(inplace=True)
@@ -1739,7 +1739,7 @@ elif page == "🛡️ Benefit Cost Sharing Analysis":
     def load_benefits_data():
         # Loading a chunk of the raw data (to prevent crashing since it is 375MB)
         # Note: In production, you would point this to the cleaned CSV from your notebook!
-        df_b = pd.read_csv('data/raw/Benefits_Cost_Sharing_PUF.csv', nrows=5000, low_memory=False)
+        df_b = pd.read_csv('sample_data/Benefits_Cost_Sharing_PUF.csv', nrows=5000, low_memory=False)
         return df_b
 
     try:
