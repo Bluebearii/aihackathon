@@ -30,11 +30,12 @@ const SEARCHABLE_PAGES = [
   { name: 'Book Appointment', route: '/book' },
   { name: 'Medical History', route: '/medical-history' },
   { name: 'Admin Dashboard', route: '/admin', requiresAuth: 'admin' },
-  { name: 'Calendar', route: '/admin/calendar', requiresAuth: 'admin' },
+  { name: 'Admin Calendar', route: '/admin/calendar', requiresAuth: 'admin' },
   { name: 'Patient Database', route: '/admin/patients', requiresAuth: 'admin' },
   { name: 'Admin Booking', route: '/admin/book', requiresAuth: 'admin' },
   { name: 'Analytics', route: '/analytics', requiresAuth: 'admin' },
   { name: 'Patient Dashboard', route: '/dashboard', requiresAuth: 'patient' },
+  { name: 'Patient Calendar', route: '/calendar', requiresAuth: 'patient' },
   { name: 'Login', route: '/login' },
   { name: 'Sign Up', route: '/signup' }
 ];
@@ -129,7 +130,10 @@ const Navbar = () => {
             </>
           )}
           {user?.role === 'patient' && (
-            <Link to="/dashboard" className="nav-link patient-link">Dashboard</Link>
+            <>
+              <Link to="/dashboard" className="nav-link patient-link">Dashboard</Link>
+              <Link to="/calendar" className="nav-link patient-link">Calendar</Link>
+            </>
           )}
         </div>
 
