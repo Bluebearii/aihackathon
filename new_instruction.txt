@@ -1,0 +1,315 @@
+Build a full healthcare clinic web application with both an Admin Portal and Patient Portal. The website should look modern, clean, professional, and clinic-friendly, similar to a real medical/optometry office management system. Use a simple dashboard layout with a sidebar, top navigation bar, cards, tables, forms, search filters, and a calendar schedule view.
+
+The application should help the clinic manage patients, appointments, medical history forms, no-show tracking, and a patient points/rewards system.
+
+Main goal:
+Create a clinic system where patients can book appointments, complete medical history forms, earn points for showing up, and admins can manage the schedule, approve attendance, view patient records, and export patient forms to PDF.
+
+Admin Portal Requirements:
+
+1. Admin Dashboard
+   Create an admin-only dashboard that shows:
+
+* Total patients
+* Today’s appointments
+* Upcoming appointments
+* Completed appointments
+* No-show appointments
+* Pending medical history forms
+* Total points awarded
+* Recent patient activity
+* Quick buttons for “Book Appointment,” “Add Patient,” “View Calendar,” and “Medical History Forms”
+
+2. Patient Database
+   Create a patient management page where admin can:
+
+* View all patients in a table
+* Search patients by name, phone number, email, or date of birth
+* Filter patients by appointment status, points, or last visit
+* View patient profile details
+* Add, edit, and delete sample/demo patients
+* View each patient’s appointment history
+* View each patient’s medical history form
+* View each patient’s points balance
+
+Create 10 sample patients in the database so the admin can demonstrate the system. Each sample patient should have:
+
+* Full name
+* Date of birth
+* Gender
+* Phone number
+* Email
+* Address
+* Insurance provider
+* Appointment history
+* Upcoming appointment
+* Points balance
+* Medical history completion status
+
+Use realistic fake patient data only. Do not use real patient information.
+
+3. Appointment Booking System
+   Create an admin appointment booking feature where staff can book appointments for patients. Admin should be able to:
+
+* Select an existing patient from the database
+* Create a new patient while booking
+* Choose appointment date
+* Choose appointment time
+* Choose appointment type
+* Add appointment reason
+* Assign provider/doctor
+* Add appointment notes
+* Mark appointment as pending, confirmed, completed, cancelled, or no-show
+
+Appointment types should include:
+
+* Annual Eye Exam
+* Contact Lens Exam
+* Follow-up Visit
+* Medical Office Visit
+* New Patient Visit
+* Emergency Visit
+* Consultation
+
+4. Calendar Feature
+   Create a full admin-only calendar feature that looks like a typical clinic scheduling calendar. It should allow the admin to manage the clinic schedule visually.
+
+Calendar requirements:
+
+* Month view
+* Week view
+* Day view
+* Appointment blocks shown by time
+* Color-coded appointment statuses
+* Ability to click an appointment to view details
+* Ability to add a new appointment from the calendar
+* Ability to drag or edit appointment time if possible
+* Filters by provider, appointment type, and appointment status
+* Show patient name, appointment time, appointment type, and status on the calendar block
+
+Status colors:
+
+* Pending: yellow
+* Confirmed: blue
+* Completed/showed up: green
+* Cancelled: gray
+* No-show: red
+
+5. Show-Up Approval / No-Show Tracking
+   Admin should be able to approve whether the patient actually showed up to the clinic on the appointment day.
+
+For each appointment, admin should have buttons:
+
+* Mark as Showed Up
+* Mark as No-Show
+* Mark as Cancelled
+* Mark as Rescheduled
+
+When admin clicks “Mark as Showed Up”:
+
+* Appointment status changes to completed/showed up
+* Patient receives points automatically
+* Attendance record is saved
+* Patient profile updates with latest visit date
+
+When admin clicks “Mark as No-Show”:
+
+* Appointment status changes to no-show
+* Patient does not receive points
+* No-show count increases on patient profile
+* Admin can add a note explaining the no-show reason if known
+
+6. Points / Rewards System
+   Create a points system for patients.
+
+Patients earn points when:
+
+* They show up to their appointment
+* They complete their medical history form before the visit
+* They refer another patient
+* Admin manually adds points
+
+Example point rules:
+
+* Show up to appointment: +10 points
+* Complete medical history before visit: +5 points
+* Refer a patient: +20 points
+* No-show: 0 points
+
+Admin should be able to:
+
+* View each patient’s points balance
+* Add or subtract points manually
+* View points history
+* See why points were awarded
+* Demonstrate points using the 10 sample patients
+
+7. Medical History Form
+   Create a medical history form feature.
+
+When the patient clicks “Medical History,” the system should ask every question and field visible on the provided medical history form. Recreate the form as accurately as possible based on the visible form layout and questions.
+
+The form should include:
+
+* Patient name
+* Date of birth
+* Phone number
+* Email
+* Address
+* Emergency contact
+* Insurance information
+* Current medications
+* Allergies
+* Medical conditions
+* Past surgeries
+* Family medical history
+* Eye/vision history if this is for an eye clinic
+* Reason for visit
+* Symptoms
+* Review of systems
+* Consent/signature section
+* Date completed
+
+Auto-fill patient information if the system already knows it, especially:
+
+* Patient name
+* Date of birth
+* Phone number
+* Email
+* Address
+* Insurance provider
+
+The patient should only need to fill in missing information or answer medical questions.
+
+8. Export Medical History to PDF
+   Allow admin and patient to export the completed medical history form to PDF.
+
+PDF requirements:
+
+* PDF should look like a clean medical form
+* Include clinic name/logo placeholder
+* Include patient name and date of birth
+* Include all answered medical history questions
+* Include signature/date section
+* Include auto-filled patient information
+* Include a timestamp showing when the form was completed
+* Button text: “Export to PDF”
+* Also allow admin to download the PDF from the patient profile
+
+9. Patient Portal Requirements
+   Create a patient portal where patients can:
+
+* Sign in or access their profile
+* View upcoming appointment
+* Book a new appointment
+* Reschedule or cancel appointment if allowed
+* Complete medical history form
+* Export their completed form to PDF
+* View points balance
+* View points history
+* See rewards explanation
+* Update basic contact information
+
+Patient homepage should show:
+
+* Welcome message with patient name
+* Upcoming appointment card
+* Medical history completion status
+* Points balance
+* Quick buttons:
+
+  * Book Appointment
+  * Complete Medical History
+  * View Points
+  * Export Form to PDF
+
+10. Patient Booking Flow
+    For patients, create a simple appointment booking flow:
+    Step 1: Select appointment type
+    Step 2: Choose preferred date
+    Step 3: Choose available time
+    Step 4: Enter reason for visit
+    Step 5: Confirm appointment
+    Step 6: Show confirmation page
+
+After booking, the appointment should appear in the admin calendar and patient dashboard.
+
+11. Admin vs Patient Permissions
+    Admin can:
+
+* View all patients
+* Manage all appointments
+* Mark show-up/no-show
+* Add/edit/delete patients
+* Award points
+* View/export all medical history forms
+* Access calendar
+* Manage sample database
+
+Patient can:
+
+* View only their own profile
+* Book appointment
+* Complete their own medical history
+* Export their own form
+* View their own points
+
+12. UI/UX Design
+    Use a clean healthcare design style:
+
+* White background
+* Soft blue, green, and gray colors
+* Professional typography
+* Rounded cards
+* Clear buttons
+* Easy-to-read tables
+* Responsive design for desktop, tablet, and mobile
+* Admin portal should look like a real clinic management dashboard
+* Patient portal should be simple and easy for patients of all ages
+
+13. Database Structure
+    Create database tables/models for:
+
+* Users
+* Patients
+* Admins
+* Appointments
+* MedicalHistoryForms
+* PointsTransactions
+* Providers
+* InsuranceInformation
+* AttendanceRecords
+
+Each appointment should connect to a patient and provider.
+Each points transaction should connect to a patient and explain the reason points were added or removed.
+Each medical history form should connect to one patient and be exportable to PDF.
+
+14. Sample Data
+    Seed the database with 10 sample patients and several sample appointments. Include different appointment statuses:
+
+* Confirmed
+* Pending
+* Completed
+* No-show
+* Cancelled
+
+Make sure some sample patients already have points and some have incomplete medical history forms so the admin can demonstrate the system.
+
+15. Important Features to Demonstrate
+    The final app should let an admin demonstrate this full workflow:
+
+* Open admin dashboard
+* View 10 sample patients
+* Book appointment for a sample patient
+* See appointment appear on calendar
+* Open patient profile
+* Complete or view medical history form
+* Export medical history form to PDF
+* Mark patient as showed up
+* Automatically add points
+* Mark another patient as no-show
+* See no-show tracking update
+* View points history
+
+16. Technical Expectations
+    Make the app functional, not just static pages. Buttons, forms, modals, tables, calendar, sample data, and PDF export should work. Use clean reusable components and organized code. Include validation for required form fields. Make sure the admin and patient portals are clearly separated.
