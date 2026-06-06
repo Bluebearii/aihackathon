@@ -409,9 +409,9 @@ if page == "📊 Dashboard Overview":
         ```
         """)
 
-        st.markdown("### 💡 Formula")
-        st.latex(r"\text{Loss} = P(\text{no-show}) \times V + (1 - P(\text{no-show})) \times P(\text{denial}) \times C")
-        st.caption("V = appointment value, C = claim amount")
+        # st.markdown("### 💡 Formula")
+        # st.latex(r"\text{Loss} = P(\text{no-show}) \times V + (1 - P(\text{no-show})) \times P(\text{denial}) \times C")
+        # st.caption("V = appointment value, C = claim amount")
 
     with col_right:
         st.markdown("### 🎯 Risk Tier Distribution")
